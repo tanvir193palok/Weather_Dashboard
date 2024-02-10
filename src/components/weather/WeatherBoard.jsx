@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import AddToFavourite from "./AddToFavourite";
+import AddToFavourite from "./ToggleFavourite";
 import WeatherHeadline from "./WeatherHeadline";
 import WeatherCondition from "./WeatherCondition";
 import { WeatherContext } from "../../context";
