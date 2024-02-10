@@ -1,4 +1,5 @@
-const { useState } = require("react");
+import { useEffect, useState } from "react";
+
 
 const useWeather = () => {
   //data state
@@ -30,7 +31,7 @@ const useWeather = () => {
       setLoading({
         ...loading,
         state: true,
-        message: "Fetching Weather Data",
+        message: "Fetching Weather Data...",
       });
 
       const response = await fetch(
@@ -62,7 +63,6 @@ const useWeather = () => {
       };
 
       setWeatherData(updatedWeatherData);
-      
     } catch (err) {
       setError(err);
     } finally {
@@ -73,4 +73,22 @@ const useWeather = () => {
       });
     }
   };
+
+  useEffect(() => {
+    setLoading({
+      loading: true,
+      message: "Finding Location...",
+    });
+    navigator.geolocation.getCurrentPosition(function (position) {
+      fetchWeatherData(position.coords.latitude, position.coords.longitude);
+    });
+  }, []);
+
+  return {
+    weatherData,
+    error,
+    loading,
+  };
 };
+
+export default useWeather;
