@@ -29,6 +29,16 @@ const data = [
     latitude: 43.6534817,
     longitude: -79.3839347,
   },
+  {
+    location: "Brazil",
+    latitude: 14.235,
+    longitude: 51.9253,
+  },
+  {
+    location: "Sydney",
+    latitude: 33.8688,
+    longitude: 151.2093,
+  },
 ];
 
 const getLocations = () => {
