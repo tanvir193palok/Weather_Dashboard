@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-
+import { useContext, useEffect, useState } from "react";
+import { LocationContext } from "../context";
 
 const useWeather = () => {
   //data state
@@ -25,6 +25,8 @@ const useWeather = () => {
 
   //error state
   const [error, setError] = useState(null);
+
+  const { searchedLocation } = useContext(LocationContext);
 
   const fetchWeatherData = async (latitude, longitude) => {
     try {
@@ -79,10 +81,15 @@ const useWeather = () => {
       loading: true,
       message: "Finding Location...",
     });
-    navigator.geolocation.getCurrentPosition(function (position) {
-      fetchWeatherData(position.coords.latitude, position.coords.longitude);
-    });
-  }, []);
+
+    if (searchedLocation.latitude && searchedLocation.longitude) {
+      fetchWeatherData(searchedLocation.latitude, searchedLocation.longitude);
+    } else {
+      navigator.geolocation.getCurrentPosition(function (position) {
+        fetchWeatherData(position.coords.latitude, position.coords.longitude);
+      });
+    }
+  }, [searchedLocation.latitude, searchedLocation.longitude]);
 
   return {
     weatherData,

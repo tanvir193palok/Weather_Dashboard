@@ -13,8 +13,6 @@ const WeatherHeadline = () => {
   const { weatherData } = useContext(WeatherContext);
   const { climate, location, temperature, time } = weatherData;
 
-  console.log(climate);
-
   const getWeatherIcon = (climate) => {
     switch (climate) {
       case "Rain":
